@@ -1,0 +1,784 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{bokeh\_tutorial\_official}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{output\PYZus{}notebook}\PY{p}{,} \PY{n}{show}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}
+        \PY{c+c1}{\PYZsh{} from bokeh.io import reset\PYZus{}output}
+        \PY{c+c1}{\PYZsh{} reset\PYZus{}output()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} suggested to run this command in its own cell at beginning}
+        \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \section{Lines/scatter}\label{linesscatter}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{pi}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models}\PY{n+nn}{.}\PY{n+nn}{annotations} \PY{k}{import} \PY{n}{ColumnDataSource}\PY{p}{,} \PY{n}{Span}\PY{p}{,} \PY{n}{BoxAnnotation}\PY{p}{,} \PY{n}{LabelSet}
+        
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{My Circles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} ColumnDataSource is a mapping of column names (strings) to sequences of values. }
+        \PY{c+c1}{\PYZsh{} The mapping is provided by passing a Python dict with string keys and simple Python lists as values. }
+        \PY{c+c1}{\PYZsh{} The values could also be NumPy arrays, or Pandas sequences.}
+        \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{y2} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{o}{*} \PY{l+m+mi}{5} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} outline}
+        \PY{n}{p}\PY{o}{.}\PY{n}{outline\PYZus{}line\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{7}
+        \PY{n}{p}\PY{o}{.}\PY{n}{outline\PYZus{}line\PYZus{}alpha} \PY{o}{=} \PY{l+m+mf}{0.3}
+        \PY{n}{p}\PY{o}{.}\PY{n}{outline\PYZus{}line\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{navy}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} add a circle renderer, size based upon data(y), can use \PYZsq{}radius=y\PYZsq{}}
+        \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{source}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{source}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{source}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{firebrick}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}dash} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        
+        \PY{n}{p}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{source}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{source}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sin(x)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pressure}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{major\PYZus{}label\PYZus{}orientation} \PY{o}{=} \PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}
+        
+        \PY{n}{lower\PYZus{}line} \PY{o}{=} \PY{n}{Span}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dimension}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{firebrick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{add\PYZus{}layout}\PY{p}{(}\PY{n}{lower\PYZus{}line}\PY{p}{)}
+        
+        \PY{n}{lower} \PY{o}{=} \PY{n}{BoxAnnotation}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{add\PYZus{}layout}\PY{p}{(}\PY{n}{lower}\PY{p}{)}
+        
+        \PY{n}{labels} \PY{o}{=} \PY{n}{LabelSet}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{names}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{level}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{glyph}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{x\PYZus{}offset}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{y\PYZus{}offset}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+        
+        
+        \PY{n}{p}\PY{o}{.}\PY{n}{add\PYZus{}layout}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{sampledata}\PY{n+nn}{.}\PY{n+nn}{autompg} \PY{k}{import} \PY{n}{autompg}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{LinearColorMapper}\PY{p}{,} \PY{n}{ColorBar}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{palettes} \PY{k}{import} \PY{n}{Viridis256}
+        
+        \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{autompg}\PY{p}{)}
+        \PY{n}{color\PYZus{}mapper} \PY{o}{=} \PY{n}{LinearColorMapper}\PY{p}{(}\PY{n}{palette}\PY{o}{=}\PY{n}{Viridis256}\PY{p}{,} \PY{n}{low}\PY{o}{=}\PY{n}{autompg}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{n}{autompg}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{x\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{toolbar\PYZus{}location}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{field}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{color\PYZus{}mapper}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+        
+        \PY{n}{color\PYZus{}bar} \PY{o}{=} \PY{n}{ColorBar}\PY{p}{(}\PY{n}{color\PYZus{}mapper}\PY{o}{=}\PY{n}{color\PYZus{}mapper}\PY{p}{,} \PY{n}{label\PYZus{}standoff}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{add\PYZus{}layout}\PY{p}{(}\PY{n}{color\PYZus{}bar}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/bokeh/core/json\_encoder.py:80: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  elif np.issubdtype(type(obj), np.float):
+
+    \end{Verbatim}
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{,} \PY{n}{show}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{sampledata}\PY{n+nn}{.}\PY{n+nn}{stocks} \PY{k}{import} \PY{n}{AAPL}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{AAPL}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} create a new plot with a datetime axis type}
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{x\PYZus{}axis\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+        
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{palettes} \PY{k}{import} \PY{n}{Spectral11}
+        
+        \PY{n}{w}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{lines} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lines}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{w}
+        
+        \PY{n}{line\PYZus{}dash\PYZus{}styles} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{color}\PY{p}{,} \PY{n}{line\PYZus{}dash} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{itertools}\PY{o}{.}\PY{n}{cycle}\PY{p}{(}\PY{n}{Spectral11}\PY{p}{)}\PY{p}{,} \PY{n}{itertools}\PY{o}{.}\PY{n}{cycle}\PY{p}{(}\PY{n}{line\PYZus{}dash\PYZus{}styles}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{p}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{n}{name}\PY{p}{,} \PY{n}{line\PYZus{}dash}\PY{o}{=}\PY{n}{line\PYZus{}dash}\PY{p}{)}
+            
+        \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}left}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \section{Histograms/CDF/PDF}\label{histogramscdfpdf}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Histogram}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special}
+        
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{layouts} \PY{k}{import} \PY{n}{gridplot}
+        
+        \PY{n}{p1} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Distribution (μ=0, σ=0.5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{tools}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{save}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{background\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}E8DDCB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{mu}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}
+        
+        \PY{n}{measured} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{hist}\PY{p}{,} \PY{n}{edges} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{measured}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{pdf} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{sigma} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{sigma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n}{cdf} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{erf}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{sigma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+        
+        \PY{n}{p1}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+                \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}036564}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}033649}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}D95B43}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{cdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p1}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center\PYZus{}right}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{background\PYZus{}fill\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrey}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr(x)}\PY{l+s+s1}{\PYZsq{}}
+        
+        
+        
+        \PY{n}{p2} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log Normal Distribution (μ=0, σ=0.5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{save}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{background\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}E8DDCB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{mu}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}
+        
+        \PY{n}{measured} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{lognormal}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{hist}\PY{p}{,} \PY{n}{edges} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{measured}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{pdf} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{x}\PY{o}{*} \PY{n}{sigma} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{sigma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n}{cdf} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{erf}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{sigma}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+        
+        \PY{n}{p2}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+                \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}036564}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}033649}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}D95B43}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{cdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p2}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center\PYZus{}right}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{background\PYZus{}fill\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrey}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr(x)}\PY{l+s+s1}{\PYZsq{}}
+        
+        
+        
+        \PY{n}{p3} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gamma Distribution (k=1, θ=2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{save}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{background\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}E8DDCB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{k}\PY{p}{,} \PY{n}{theta} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}
+        
+        \PY{n}{measured} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{gamma}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{theta}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{hist}\PY{p}{,} \PY{n}{edges} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{measured}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{20.0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{pdf} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{/}\PY{n}{theta}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{theta}\PY{o}{*}\PY{o}{*}\PY{n}{k} \PY{o}{*} \PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{gamma}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+        \PY{n}{cdf} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{gammainc}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{x}\PY{o}{/}\PY{n}{theta}\PY{p}{)} \PY{o}{/} \PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{gamma}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+        
+        \PY{n}{p3}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+                \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}036564}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}033649}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p3}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}D95B43}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p3}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{cdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p3}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center\PYZus{}right}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p3}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{background\PYZus{}fill\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrey}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p3}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr(x)}\PY{l+s+s1}{\PYZsq{}}
+        
+        
+        
+        \PY{n}{p4} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weibull Distribution (λ=1, k=1.25)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{save}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{background\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}E8DDCB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{lam}\PY{p}{,} \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1.25}
+        
+        \PY{n}{measured} \PY{o}{=} \PY{n}{lam}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{k}\PY{p}{)}
+        \PY{n}{hist}\PY{p}{,} \PY{n}{edges} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{measured}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{pdf} \PY{o}{=} \PY{p}{(}\PY{n}{k}\PY{o}{/}\PY{n}{lam}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{lam}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{lam}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}
+        \PY{n}{cdf} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{lam}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}
+        
+        \PY{n}{p4}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+               \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}036564}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}033649}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p4}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}D95B43}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{p4}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{cdf}\PY{p}{,} \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CDF}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{p4}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center\PYZus{}right}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p4}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{background\PYZus{}fill\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrey}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{p4}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p4}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{axis\PYZus{}label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr(x)}\PY{l+s+s1}{\PYZsq{}}
+        
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{gridplot}\PY{p}{(}\PY{n}{p1}\PY{p}{,}\PY{n}{p2}\PY{p}{,}\PY{n}{p3}\PY{p}{,}\PY{n}{p4}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{toolbar\PYZus{}location}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../scipy/AMZN\PYZhy{}DUK\PYZhy{}KO.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}         Date       AMZN        DUK         KO
+        0 2007-01-03  38.700001  34.971017  17.874906
+        1 2007-01-04  38.900002  35.044103  17.882263
+        2 2007-01-05  38.369999  34.240172  17.757161
+        3 2007-01-08  37.500000  34.294985  17.871225
+        4 2007-01-09  37.779999  34.130544  17.885944
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} bokeh hist of above}
+        \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}\PY{p}{,} \PY{n}{show}\PY{p}{,} \PY{n}{output\PYZus{}notebook}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{histogram}\PY{p}{,} \PY{n}{linspace}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{kde} \PY{k}{import} \PY{n}{gaussian\PYZus{}kde}
+        
+        \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{bins} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1010}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} plot actual hist for comparison}
+        \PY{n}{hist}\PY{p}{,} \PY{n}{edges} \PY{o}{=} \PY{n}{histogram}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{AMZN}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{)}
+        \PY{n}{hist1}\PY{p}{,} \PY{n}{edges1} \PY{o}{=} \PY{n}{histogram}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{DUK}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{)}
+        \PY{n}{hist2}\PY{p}{,} \PY{n}{edges2} \PY{o}{=} \PY{n}{histogram}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{KO}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist1}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{firebrick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+        \PY{n}{p}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{hist2}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{n}{edges2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{edges2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+        
+        \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    \section{Bar/Boxplot}\label{barboxplot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Boxplot, used holoviews}
+         \PY{k+kn}{import} \PY{n+nn}{holoviews} \PY{k}{as} \PY{n+nn}{hv}
+         \PY{n}{hv}\PY{o}{.}\PY{n}{extension}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bokeh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{sampledata}\PY{n+nn}{.}\PY{n+nn}{autompg} \PY{k}{import} \PY{n}{autompg} \PY{k}{as} \PY{n}{df}
+         
+         \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MPG by Cylinders and Data Source, Colored by Cylinders}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{boxwhisker} \PY{o}{=} \PY{n}{hv}\PY{o}{.}\PY{n}{BoxWhisker}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{title}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}opts} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{show\PYZus{}legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{style} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{boxwhisker}\PY{p}{(}\PY{n}{plot}\PY{o}{=}\PY{n}{plot\PYZus{}opts}\PY{p}{,} \PY{n}{style}\PY{o}{=}\PY{n}{style}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} :BoxWhisker   [cyl,origin]   (mpg)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{ColumnDataSource}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{palettes} \PY{k}{import} \PY{n}{Spectral6}
+         
+         \PY{n}{fruits} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pears}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nectarines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grapes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strawberries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{counts} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}
+         
+         \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{fruits}\PY{o}{=}\PY{n}{fruits}\PY{p}{,} \PY{n}{counts}\PY{o}{=}\PY{n}{counts}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{Spectral6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{x\PYZus{}range}\PY{o}{=}\PY{n}{fruits}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{y\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fruit Counts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{p}\PY{o}{.}\PY{n}{vbar}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fruits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fruits}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{xgrid}\PY{o}{.}\PY{n}{grid\PYZus{}line\PYZus{}color} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{orientation} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizontal}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}center}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{sampledata}\PY{n+nn}{.}\PY{n+nn}{commits} \PY{k}{import} \PY{n}{data}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{transform} \PY{k}{import} \PY{n}{jitter}
+         
+         \PY{n}{DAYS} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{y\PYZus{}range}\PY{o}{=}\PY{n}{DAYS}\PY{p}{,} \PY{n}{x\PYZus{}axis\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Commits by Time of Day (US/Central) 2012—2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{jitter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{n}{p}\PY{o}{.}\PY{n}{y\PYZus{}range}\PY{p}{)}\PY{p}{,}  \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{xaxis}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{formatter}\PY{o}{.}\PY{n}{days} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Hh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{p}\PY{o}{.}\PY{n}{x\PYZus{}range}\PY{o}{.}\PY{n}{range\PYZus{}padding} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{p}\PY{o}{.}\PY{n}{ygrid}\PY{o}{.}\PY{n}{grid\PYZus{}line\PYZus{}color} \PY{o}{=} \PY{k+kc}{None}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \section{Data Selection/Hover}\label{data-selectionhover}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{HoverTool}
+         
+         \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}
+                 \PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                     \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{desc}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{)}
+             \PY{p}{)}
+         
+         \PY{n}{hover} \PY{o}{=} \PY{n}{HoverTool}\PY{p}{(}
+                 \PY{n}{tooltips}\PY{o}{=}\PY{p}{[}
+                     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(x,y)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(\PYZdl{}x, \PYZdl{}y)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{desc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{@desc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{]}
+             \PY{p}{)}
+         
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{p}{[}\PY{n}{hover}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mouse over the dots}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{tools}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Select a circle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{renderer} \PY{o}{=} \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+         
+                             \PY{c+c1}{\PYZsh{} set visual properties for selected glyphs}
+                             \PY{n}{selection\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{firebrick}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         
+                             \PY{c+c1}{\PYZsh{} set visual properties for non\PYZhy{}selected glyphs}
+                             \PY{n}{nonselection\PYZus{}fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                             \PY{n}{nonselection\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{n}{nonselection\PYZus{}line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{firebrick}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{n}{nonselection\PYZus{}line\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models}\PY{n+nn}{.}\PY{n+nn}{tools} \PY{k}{import} \PY{n}{HoverTool}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{sampledata}\PY{n+nn}{.}\PY{n+nn}{glucose} \PY{k}{import} \PY{n}{data}
+         
+         \PY{n}{subset} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2010\PYZhy{}10\PYZhy{}06}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{subset}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{to\PYZus{}series}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{subset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{glucose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Basic plot setup}
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{x\PYZus{}axis\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hover over points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{line\PYZus{}dash}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{cr} \PY{o}{=} \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}
+                       \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hover\PYZus{}fill\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{firebrick}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{hover\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,}
+                       \PY{n}{line\PYZus{}color}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{hover\PYZus{}line\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{add\PYZus{}tools}\PY{p}{(}\PY{n}{HoverTool}\PY{p}{(}\PY{n}{tooltips}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{renderers}\PY{o}{=}\PY{p}{[}\PY{n}{cr}\PY{p}{]}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \section{Gridplot + data selection}\label{gridplot-data-selection}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{ColumnDataSource}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y0}\PY{p}{,} \PY{n}{y1} \PY{o}{=} \PY{p}{[}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{xx}\PY{p}{)} \PY{k}{for} \PY{n}{xx} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{xx}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{xx} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} create a column data source for the plots to share}
+         \PY{n}{source} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{y0}\PY{o}{=}\PY{n}{y0}\PY{p}{,} \PY{n}{y1}\PY{o}{=}\PY{n}{y1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{TOOLS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{box\PYZus{}select,help}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} can use \PYZsq{}lasso\PYZus{}select\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} create a new plot and add a renderer}
+         \PY{n}{left} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{tools}\PY{o}{=}\PY{n}{TOOLS}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+         \PY{n}{left}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create another new plot and add a renderer}
+         \PY{n}{right} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{tools}\PY{o}{=}\PY{n}{TOOLS}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+         \PY{n}{right}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source}\PY{p}{)}
+         
+         \PY{n}{p} \PY{o}{=} \PY{n}{gridplot}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{left}\PY{p}{,} \PY{n}{right}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
