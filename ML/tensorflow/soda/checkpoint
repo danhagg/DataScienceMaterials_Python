@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/danielhaggerty/Documents/tf/soda/TF_W_H_sodas-0.001-6-conv-basic-video.model"
+all_model_checkpoint_paths: "/Users/danielhaggerty/Documents/tf/soda/TF_W_H_sodas-0.001-6-conv-basic-video.model"
